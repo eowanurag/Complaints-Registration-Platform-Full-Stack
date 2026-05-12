@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaints Registration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="toast-container"></div>
+
+    <nav class="navbar" id="navbar" style="display: none;">
+        <div class="nav-brand">CompReg</div>
+        <div class="nav-links">
+            <span id="user-greeting"></span>
+            <button id="nav-my-complaints" class="btn-text" style="display: none;">My Complaints</button>
+            <button id="nav-admin-dashboard" class="btn-text" style="display: none;">Admin Dashboard</button>
+            <button id="btn-logout" class="btn-outline">Logout</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Auth View -->
+        <section id="view-auth" class="view active">
+            <div class="glass-card auth-card">
+                <div class="tabs">
+                    <button class="tab active" data-target="form-login">Login</button>
+                    <button class="tab" data-target="form-register">Register</button>
+                </div>
+
+                <!-- Login Form -->
+                <form id="form-login" class="auth-form active">
+                    <h2>Welcome Back</h2>
+                    <div class="input-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" required>
+                    </div>
+                    <button type="submit" class="btn-primary w-100" id="btn-login-submit">Login</button>
+                </form>
+
+                <!-- Register Flow -->
+                <div id="form-register" class="auth-form" style="display: none;">
+                    
+                    <!-- Step 1: Send OTP -->
+                    <form id="step-send-otp">
+                        <h2>Create Account</h2>
+                        <div class="input-group">
+                            <label for="reg-name">Full Name</label>
+                            <input type="text" id="reg-name" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="reg-email">Email</label>
+                            <input type="email" id="reg-email" required>
+                        </div>
+                        <button type="submit" class="btn-primary w-100" id="btn-send-otp">Send OTP</button>
+                    </form>
+
+                    <!-- Step 2: Verify OTP & Set Password -->
+                    <form id="step-verify-otp" style="display: none;">
+                        <h2>Verify Email</h2>
+                        <p class="subtitle">We sent a code to your email.</p>
+                        <div class="input-group">
+                            <label for="reg-otp">OTP Code</label>
+                            <input type="text" id="reg-otp" required maxlength="6">
+                        </div>
+                        <div class="input-group">
+                            <label for="reg-password">Password</label>
+                            <input type="password" id="reg-password" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="reg-confirm-password">Confirm Password</label>
+                            <input type="password" id="reg-confirm-password" required>
+                        </div>
+                        <button type="submit" class="btn-primary w-100" id="btn-register">Complete Registration</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- User: Submit Complaint View -->
+        <section id="view-submit-complaint" class="view" style="display: none;">
+            <div class="glass-card wide-card">
+                <div class="card-header">
+                    <h2>Submit a Complaint</h2>
+                    <button id="btn-back-to-my-complaints" class="btn-text">← Back</button>
+                </div>
+                
+                <form id="form-complaint">
+                    <div class="input-group">
+                        <label for="complaint-text">Describe your issue in detail</label>
+                        <textarea id="complaint-text" rows="5" required></textarea>
+                    </div>
+                    <button type="button" class="btn-primary" id="btn-get-ai-question">Get Follow-up Question</button>
+
+                    <div id="ai-section" style="display: none;" class="mt-4 fade-in">
+                        <div class="ai-question-box">
+                            <strong>AI Assistant:</strong>
+                            <p id="ai-question-text"></p>
+                        </div>
+                        <div class="input-group mt-3">
+                            <label for="user-answer">Your Answer</label>
+                            <textarea id="user-answer" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-success w-100" id="btn-submit-final">Submit Complaint</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- User: My Complaints View -->
+        <section id="view-my-complaints" class="view" style="display: none;">
+            <div class="header-action">
+                <h2>My Complaints</h2>
+                <button id="btn-new-complaint" class="btn-primary">New Complaint</button>
+            </div>
+            <div id="my-complaints-list" class="complaints-grid">
+                <!-- Loaded via JS -->
+            </div>
+        </section>
+
+        <!-- Admin Dashboard View -->
+        <section id="view-admin-dashboard" class="view" style="display: none;">
+            <h2>Admin Dashboard - All Complaints</h2>
+            <div id="all-complaints-list" class="complaints-list">
+                <!-- Loaded via JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
