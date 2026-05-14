@@ -1,4 +1,8 @@
-const BACKEND_BASE_URL = 'http://localhost:3000/api';
+// Update this URL once your backend is deployed to Render
+const DEPLOYED_BACKEND_URL = 'https://your-backend-app.onrender.com';
+
+const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+const BACKEND_BASE_URL = `${isLocal ? 'http://localhost:3000' : DEPLOYED_BACKEND_URL}/api`;
 
 async function fetchAPI(endpoint, options = {}) {
     // Merge credentials option so cookies are sent with requests
