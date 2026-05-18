@@ -108,10 +108,11 @@ router.post('/login', async (req: Request, res: Response) => {
     const token = jwt.sign({ id: user.id, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: '1d' });
     
     // Set cookie (not HttpOnly, not Secure, not SameSite Strict as per requirements for easier local testing)
+    const isProd = process.env.NODE_ENV === 'production';
     res.cookie('token', token, {
       httpOnly: false,
-      secure: false,
-      sameSite: 'lax',
+      secure: isProd,
+      sameSite: isProd ? 'none' : 'lax',
       maxAge: 24 * 60 * 60 * 1000 // 1 day
     });
 
@@ -123,7 +124,12 @@ router.post('/login', async (req: Request, res: Response) => {
 });
 
 router.post('/logout', (req: Request, res: Response) => {
-  res.clearCookie('token');
+  const isProd = process.env.NODE_ENV === 'production';
+  res.clearCookie('token', {
+    httpOnly: false,
+    secure: isProd,
+    sameSite: isProd ? 'none' : 'lax',
+  });
   res.json({ message: 'Logged out successfully' });
 });
 
