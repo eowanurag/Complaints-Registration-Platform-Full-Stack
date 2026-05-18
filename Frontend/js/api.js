@@ -1,4 +1,4 @@
-const BACKEND_BASE_URL = 'http://localhost:3000/api';
+const BACKEND_BASE_URL = 'https://complaints-registration-platform-full-tytv.onrender.com/api';
 
 async function fetchAPI(endpoint, options = {}) {
     // Merge credentials option so cookies are sent with requests
